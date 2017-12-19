@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+def AAVersion = '4.4.0'
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.example.hovanly.baseproject"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions.includeCompileClasspath = true
+        }
+
+    }
+    signingConfigs {
+        release {
+            // TODO Config build release
+        }
+    }
+    buildTypes {
+        release {
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled false
+            debuggable false
+            signingConfig signingConfigs.release
+            buildConfigField "String", "HOST_API", '"http://api.com/"'
+        }
+        debug {
+            debuggable true
+            buildConfigField "String", "HOST_API", '"http://demo.api.com/"'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    // Android annotation
+    annotationProcessor "org.androidannotations:androidannotations:$AAVersion"
+    compile "org.androidannotations:androidannotations-api:$AAVersion"
+    // Lombok
+    compile 'org.projectlombok:lombok:1.16.18'
+    // Retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
+    compile 'com.google.code.gson:gson:2.8.0'
+}
